@@ -3,7 +3,8 @@ export default {
 	content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
 	theme: {
 		fontFamily: {
-			dmsans: ["DM Sans", "sans-serif"],
+			primary: ["Raleway", "sans-serif"],
+			secondary: ["Inter", "sans-serif"],
 		},
 		extend: {
 			colors: {

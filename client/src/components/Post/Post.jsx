@@ -1,34 +1,40 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { renderProperDate } from "../../helpers/context/utils";
 
-function Posts() {
+function Posts({
+	_id,
+	title,
+	summary,
+	content,
+	author,
+	createdAt,
+	coverImgPath,
+}) {
 	return (
-		<div className="w-full flex flex-col lg:flex-row items-center p-1 border border-gray-300 my-5">
-			<div className="h-full">
-				<img
-					className="object-contain h-full"
-					src="https://images.yourstory.com/cs/2/628912e0d7f211eb8e8307e5b6451cf7/FlipkartFI-07-1698555030026.png?w=1152&fm=auto&ar=2:1&mode=crop&crop=faces"
-					alt=""
-				/>
+		<section className="bg-white h-full max-w-[800px] p-5 font-secondary m-5">
+			<h3 className="font-primary font-extrabold text-3xl my-8 text-dark_accent">
+				{title}
+			</h3>
+			<img
+				className="object-contain w-full"
+				src={"http://localhost:4000/" + coverImgPath}
+				alt="Post image"
+			/>
+			<div className="py-5 flex items-center justify-between">
+				<time className="text-xs">{renderProperDate({ createdAt })}</time>
+				<a className="text-xs px-1 font-extrabold text-[#333]">
+					{author.username}
+				</a>
 			</div>
-			<div className="p-4 flex flex-col gap-2 justify-between text-darkest_accent">
-				<h2 className="font-bold md:text-3xl text-xl cursor-pointer">
-					FLIPKART TAKES A STAB AT INSURANCE ONCE AGAIN
-				</h2>
-				<p className="text-xs flex gap-3 text-gray-500 font-bold items-center">
-					<a className="p-1 border border-gray-500 cursor-pointer text-[#333]">
-						Naina Sood
-					</a>
-					<time>22-Mar-2023</time>
-				</p>
-				<p className="text-xs sm:text-md">
-					Flipkart has decided to revive its insurance game in a revamped
-					avatar, with a new technology partner, Coverfox. As the ecommerce
-					player ramps up its financial services portfolio, post separation from
-					PhonePe, a new plug-and-play independent insurance model is in the
-					making.
-				</p>
-			</div>
-		</div>
+			<p className="text-[16px] mb-4">{summary}</p>
+			<Link
+				to={`/posts/${_id}`}
+				className="font-primary font-bold text-dark_accent"
+			>
+				Read more
+			</Link>
+		</section>
 	);
 }
 

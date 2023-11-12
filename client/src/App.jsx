@@ -1,29 +1,27 @@
-import NavBar from "./components/NavBar/NavBar";
+import Layout from "./pages/Layout";
 import Post from "./components/Post/Post";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import CreatPost from "./pages/CreatPost";
+import IndexPage from "./pages/IndexPage";
+import PostPage from "./pages/PostPage";
+
 import { Route, Routes } from "react-router-dom";
+import { UserContextProvider } from "./helpers/context/UserContext";
 
 function App() {
 	return (
-		<>
-			<NavBar />
-			<div className="pt-24 px-8">
-				<Routes>
-					<Route
-						index
-						element={
-							<div className="lg:px-52 px-8">
-								<Post />
-								<Post />
-							</div>
-						}
-					/>
-					<Route path="/login" element={<Login/>} />
-					<Route path="/register" element={<Register/>} />
-				</Routes>
-			</div>
-		</>
+		<UserContextProvider>
+			<Routes>
+				<Route path="/" element={<Layout />}>
+					<Route index element={<IndexPage />} />
+					<Route path="/login" element={<Login />} />
+					<Route path="/register" element={<Register />} />
+					<Route path="/create" element={<CreatPost />} />
+					<Route path="/posts/:id" element={<PostPage />} />
+				</Route>
+			</Routes>
+		</UserContextProvider>
 	);
 }
 
