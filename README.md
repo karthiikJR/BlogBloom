@@ -71,6 +71,6 @@ blogBloom is a full-stack blog application created using the MERN (MongoDB, Expr
 1. In the `client` folder, run `npm run dev` to start the frontend server.
 2. In the `server` folder, run `npm run dev` to start the backend server.
 
-Visit `http://localhost:3000` in your browser to access the blogBloom application.
+Visit `http://localhost:5173` in your browser to access the blogBloom application.
 
 Happy Blogging!
