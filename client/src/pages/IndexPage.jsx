@@ -14,7 +14,7 @@ function IndexPage() {
 	}, []);
 
 	return (
-		<div className="flex flex-wrap justify-center">
+		<div className="flex flex-col items-center justify-center">
 			{posts.length > 0 &&
 				posts.map((post, index) => <Post key={index} {...post} />)}
 		</div>

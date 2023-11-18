@@ -69,4 +69,34 @@ router.get("/getpost/:id", async (req, res) => {
 	res.json(post).status(200);
 });
 
+// Update a post in the database
+router.put("/editpost/", uploadMiddleware.single("image"), async (req, res) => {
+	 let newPath = null;
+		if (req.file) {
+			const { originalname, path } = req.file;
+			const parts = originalname.split(".");
+			const ext = parts[parts.length - 1];
+			newPath = path + "." + ext;
+			fs.renameSync(path, newPath);
+		}
+		const {Session_cookie} = req.cookies;
+		Jwt.verify(Session_cookie, JWT_SECRET, async(err, data)=>{
+			if(err) throw err;
+			const {postId, title, summary, content} = req.body;
+			const postDoc = await PostModel.findById(postId);
+			const isAuthor = JSON.stringify(postDoc.author) === JSON.stringify(data.id);
+			if (!isAuthor) {
+				return res.status(400).json("You are not the author");
+			}
+			await postDoc.updateOne({
+				title,
+				summary,
+				content,
+				coverImgPath: newPath ? newPath : postDoc.coverImgPath,
+			});
+
+			res.json(postDoc).status(200);
+		});
+});
+
 export { router as PostRouter };
